@@ -1,0 +1,24 @@
+appName = "chat_room"
+debug = true
+
+[service]
+port = "9999"
+
+[mysql]
+host = "localhost"
+name = "memo"
+password = "123456"
+port = 3306
+tablePrefix = ""
+user = "root"
+
+[log]
+level = "trace"
+path = "logs/chat.log"
+
+[imageStorage]
+filePath = "/home/fangaoyang/work"
+
+[nodeInfo]
+ip = "10.249.46.250"
+port = 16509
