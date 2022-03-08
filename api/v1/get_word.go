@@ -14,6 +14,19 @@ func GetWord(c *gin.Context) {
 	c.JSON(200, data)
 }
 
+func Remember(c *gin.Context) {
+  word := c.Param("word")
+  service.RememberWord(word)
+  c.JSON(200, "")
+}
+
+
+func Forget(c *gin.Context) {
+  word := c.Param("word")
+  service.ForgetWord(word)
+  c.JSON(200, "")
+}
+
 
 func GetWordByTime(c *gin.Context){
   data := service.GetWordByTime(50)

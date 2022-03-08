@@ -9,6 +9,6 @@ type Status struct {
 
 type Word struct {
 	gorm.Model
-	Label string `json:"label" gorm:"unique"`
+	Label string `json:"label" gorm:"index"`
 	Data  string `json:"data" gorm:"not null"`
 }

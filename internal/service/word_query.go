@@ -6,6 +6,7 @@ import (
 	"github.com/mini-ecs/back-end/internal/model"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func QueryWord(word string) string {
@@ -36,11 +37,37 @@ func QueryWord(word string) string {
 	}
 	return w.Data
 }
+func RememberWord(word string) {
+	db := pool.GetDB()
+  fmt.Println("remember ", word)
 
+	t := time.Now()
+	d, _ := time.ParseDuration("72h")
+	newTime := t.Add(d)
+
+	res := db.Model(&model.Word{}).Where("label = ?", word).Update("updated_at", newTime)
+  if res.Error != nil {
+    fmt.Println(res.Error)
+  }
+}
+
+func ForgetWord(word string)  {
+  db := pool.GetDB()
+  fmt.Println("remember ", word)
+
+  t := time.Now()
+  d, _ := time.ParseDuration("-24h")
+  newTime := t.Add(d)
+
+  res := db.Model(&model.Word{}).Where("label = ?", word).Update("updated_at", newTime)
+  if res.Error != nil {
+    fmt.Println(res.Error)
+  }
+}
 func GetWordByTime(num int) []model.Word {
 	db := pool.GetDB()
 	var words []model.Word
-	res := db.Order("updated_at").Select("label").Limit(num).Find(&words)
+	res := db.Order("updated_at").Select("label", "updated_at").Limit(num).Find(&words)
 	if res.Error != nil {
 		fmt.Println(res.Error)
 	}

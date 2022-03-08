@@ -26,6 +26,8 @@ func NewRouter() *gin.Engine {
 	{
 		group.GET("/query/:word", v1.GetWord)
 		group.GET("/all", v1.GetWordByTime)
+		group.POST("/remember/:word", v1.Remember)
+		group.POST("/forget/:word", v1.Forget)
 	}
 	return r
 }
